@@ -8,6 +8,8 @@ awaiting =false
 let date_info = {}
 let currDate;
 let todo = "";
+let submit_code = ""
+let response_func;
 
 function setMonth(start, month, year){
     awaiting = false
@@ -124,7 +126,10 @@ function choice(arr){
 }
 
 window.api.receive("fromMain", (data)=>{
-    if(data == undefined){if(awaiting){menuAlert("There's no info saved on this day...", false)}; return}
+    if(data[0] == undefined){
+        if(awaiting){menuAlert("There's no info saved on this day...", false)};
+        return
+    }
     if (!awaiting){
         date_info[data[1]] = data[0]
         return
@@ -156,8 +161,27 @@ window.onresize = ()=>{
     }
 }
 
-function ask(){
-    document.getElementsByClassName("bg")[0].style.opacity = "1"
+await_response = ()=>{x = setInterval(()=>{
+    if (submit_code != ""){
+        response_func(submit_code)
+        submit_code = ""
+        response_func = undefined
+        hide_ask()
+        clearInterval(x)
+    }
+}, 10)}
+
+function hide_ask(){
+    document.getElementsByClassName("bg")[0].style.display ="none"
 }
 
-ask()
+function ask(resFunc){
+    response_func = resFunc
+    let button = document.getElementsByClassName("submitText")[0]
+    submit_code = ""
+    button.onclick = ()=>{
+        submit_code = document.getElementById("askText").value
+    }
+    document.getElementsByClassName("bg")[0].style.display = "block"
+    await_response()
+}
