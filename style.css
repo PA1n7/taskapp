@@ -1,0 +1,369 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    user-select: none;
+}
+
+html {height: 100%;}
+
+body {
+    background-color: #121212;
+    width: 100%;
+    height: 100%;
+}
+
+/*HYPERLINK*/
+
+a:hover {
+    cursor: pointer;
+}
+
+/*END*/
+
+/*OVERLAY*/
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.inner-content {
+    position: relative;
+    top: -100%;
+    padding: 10px;
+    height: 100%;
+}
+
+/*END*/
+
+/*PRIORITY BACKGROUND*/
+
+.priority-1 {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.priority-2 {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.priority-3 {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.priority-4 {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/*END*/
+
+/*CONTENT*/
+
+.content-div {
+    border-radius: 5px;
+    position: relative;
+}
+
+/*END*/
+
+/*SCROLLBAR*/
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #550077;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #660088;
+}
+
+/*SCROLLBAR END*/
+
+/*Calendar part*/
+#calendar {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 3%;
+}
+
+#week-days-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5vw;
+}
+
+#week-days-top:hover {
+    cursor: default;
+}
+
+#day-squares {
+    width: 100%;
+    height: 90%;
+}
+
+.day {
+    width: 14%;
+    aspect-ratio: 2/1;
+    display:inline-block;
+    border-radius: 5px;
+    border: #565656 1px solid;
+    padding: 5px;
+    transition: all 0.3s ease-in-out;
+    font-size: 1.5vw;
+}
+
+.hoverable-day:hover {
+    background-color: #565656;
+    border-color: white;
+    cursor: pointer;
+}
+
+.day-row {
+    width: 100%;
+    display: flex;
+    margin-top: 1%;
+    justify-content: space-between;
+}
+
+#date-info {
+    font-size: 3vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+#date-info:hover {
+    cursor: default;
+}
+
+.button {
+    color: white;
+    transition: all 0.3s ease-in;
+}
+
+.button:hover {
+    color: #565656;
+}
+
+.current-day {
+    border: #660088 1px solid !important;
+}
+
+/*END*/
+
+/*MENU*/
+
+#menu {
+    position: fixed;
+    height: 100%;
+    width: 45%;
+    z-index: 1000;
+    transition: all ease-out 0.3s;
+    top: 0;
+}
+
+.menu-item {
+    color: black;
+    padding: 1%;
+    font-size: small;
+    border-bottom: white solid 1px;
+    transition: all 0.3s ease-in-out;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: black;
+    border-color: black;
+}
+
+.menuEssentials {
+    background-color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.menuEssentials:hover {
+    background-color: #550077;
+}
+
+#bMenu {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 3%;
+    aspect-ratio: 1/1;
+    background-color: #550077;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2vw;
+    font-weight: bolder;
+    color:white;
+    transition: all 0.3s ease-in-out;
+    border: #550077 solid 1px;
+}
+
+#bMenu:hover{
+    background-color: transparent;
+    cursor: pointer;
+}
+/*END*/
+
+/*NOTES*/
+
+.colorNote {
+    display: inline-block;
+    width: 10%;
+    aspect-ratio: 1/1;
+    margin: 1%;
+    border-radius: 25px;
+}
+
+.hiddenNote {
+    position: absolute;
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    padding: 10px;
+    color: black;
+    display: none;
+}
+
+.colorNote:hover .hiddenNote{
+    display: block;
+    opacity: 1;
+}
+
+/*END*/
+
+/*SECTION*/
+
+.section {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/*END*/
+
+/*TODO*/
+
+.TODO {
+    width: 47%;
+    float: left;
+    aspect-ratio: 4/3;
+    border-radius: 5px;
+    margin-top: 2%;
+}
+
+.todoItem {
+    width: 100%;
+    transition: all 0.3s ease;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.todoItem:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.todoHeader {
+    text-align: center;
+    background-color: #550077;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: #550077 solid 1px;
+    transition: all 0.3s ease;
+    
+}
+
+.todoHeader:hover {
+    background-color: transparent;
+}
+
+/*END*/
+
+/*NOTES*/
+
+.notes {
+    width: 47%;
+    float: right;
+    aspect-ratio: 4/3;
+    border-radius: 25px;
+    margin-top: 2%;
+}
+
+/*END*/
+
+/*ENTER TEXT*/
+
+.inputText {
+    width: 20%;
+    aspect-ratio: 4/3;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.inputText input {
+    background-color: #121212;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    display: block;
+    color: white;
+    width: 100%;
+    padding: 5px;
+    border: solid 1px #121212;
+    border-radius: 5px;
+    transition: all 0.6s ease;
+}
+
+.inputText button {
+    margin-top: 5px;
+    background-color: black;
+    border: none;
+    padding: 5px;
+    border: 1px solid black;
+    transition: all 0.3s ease;
+}
+
+.inputText input:focus {
+    background-color: transparent;
+}
+
+.inputText button:hover {
+    background-color: transparent;
+}
+
+.bg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+/*END*/
