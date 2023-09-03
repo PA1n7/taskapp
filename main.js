@@ -30,17 +30,17 @@ app.on('window-all-closed', () => {
 
 ipcMain.on("toMain", (event, args)=>{
     let data = args.split(" ")
-    // console.log("command received "+args)
+    console.log("command received "+args)
     if (data[0]=="read"){
         fs.readFile("saved_data.json", (err, fileData)=>{
             if(err)throw err
             let jsonData = JSON.parse(fileData.toString())
-            // console.log("Read file:")
-            // console.log(fileData.toString() + "\nEND")
-            // console.log("Finding for index "+data[1])
+            console.log("Read file:")
+            console.log(fileData.toString() + "\nEND")
+            console.log("Finding for index "+data[1])
             let response = jsonData[data[1].toString()]
-            // console.log(`response: ${response}`)
-            // console.log("Returning response...")
+            console.log(`response: ${response}`)
+            console.log("Returning response...")
             win.webContents.send("fromMain", [response, data[1]])
         })
     }

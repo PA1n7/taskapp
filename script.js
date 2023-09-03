@@ -2,6 +2,9 @@ let daySquares = document.getElementById("day-squares")
 let date = new Date()
 let dpm = {0: 31, 1:28, 2:31, 3:30, 4:31, 5:30, 6:31, 7:31, 8:30, 9:31, 10:30, 11:31}
 start = date.getDay()-(date.getDate()%7-1)
+if (start < 0){start = 7+start}
+console.log(date.getDate())
+console.log(date.getDay())
 let currMonth = date.getMonth()
 let currYear = date.getFullYear()
 awaiting =false
@@ -15,6 +18,9 @@ function setMonth(start, month, year){
     awaiting = false
     let day = 1
     daySquares.innerHTML = ""
+    console.log(start)
+    console.log(month)
+    console.log(year)
     for (let n = 0; n<6; n++){
         let dayRow = document.createElement("div")
         dayRow.className = "day-row"
@@ -71,7 +77,8 @@ function setMonth(start, month, year){
     dateInfo.innerText = year + " / " + (month+1)
 }
 
-setMonth(start, currMonth, currYear)
+setMonth(start, currMonth, currYear);
+
 
 document.getElementById("prevMonth").onclick = ()=>{
     if (currMonth == 0){currMonth = 11; currYear--}else{currMonth--}
