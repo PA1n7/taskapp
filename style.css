@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: serif;
     font-weight: bold;
     user-select: none;
 }
@@ -10,10 +10,38 @@
 html {height: 100%;}
 
 body {
-    background-color: #121212;
     width: 100%;
     height: 100%;
+    margin-top: 6%;
 }
+
+.full-bg {
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://wallpapers.com/images/featured/landscape-293chzhp3r67ag4a.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    top: 0;
+    left: 0;
+}
+
+/*TITLE BAR*/
+
+.title-bar {
+    width: 100%;
+    height: 5%;
+    background-color: #121212;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    font-size: 2vw;
+}
+
+/*END*/
 
 /*HYPERLINK*/
 
@@ -43,19 +71,19 @@ a:hover {
 /*PRIORITY BACKGROUND*/
 
 .priority-1 {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .priority-2 {
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .priority-3 {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .priority-4 {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 /*END*/
@@ -78,7 +106,7 @@ a:hover {
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: none;
+    background: #121212;
 }
 
 /* Handle */
@@ -96,7 +124,7 @@ a:hover {
 
 /*Calendar part*/
 #calendar {
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
     margin-top: 3%;
 }
@@ -174,43 +202,113 @@ a:hover {
     z-index: 1000;
     transition: all ease-out 0.3s;
     top: 0;
+    overflow-y: scroll;
 }
 
 .menu-item {
-    color: black;
-    padding: 1%;
+    color: snow;
+    padding: 2%;
     font-size: small;
-    border-bottom: white solid 1px;
-    transition: all 0.3s ease-in-out;
+    height: 20%;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 10px;
+    background-color: #550077;
+    margin-top: 1.25%;
+    margin-bottom: 1.25%;
+    border: #550077 solid 1px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.menu-item:last-of-type {
+    margin-bottom: 10%;
 }
 
 .menu-item:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: black;
-    border-color: black;
+    background-color: transparent;
+}
+
+.menu-item .noteHead {
+    width: 100%;
+    height: 3.5vh;
+    display: block;
+}
+
+.noteHead h1 {
+    float: left;
+    vertical-align: middle;
+    font-size: 2vw;
+}
+
+.menu-item p {
+    font-size: 1.5vw;
+    display: block;
+    width: 80%;
+    text-align: justify;
+    margin-top: 1.5%;
+}
+
+.noteHead .circle {
+    height: 100%;
+    aspect-ratio: 1/1;
+    float: right;
+    opacity: 1;
+    border-radius: 50%;
+    transition: opacity 0.3s ease;
+}
+
+.noteHead .circle:hover{
+    opacity: 0.5;
 }
 
 .menuEssentials {
     background-color: rgba(0, 0, 0, 0.8);
     text-align: center;
+    height: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.3s ease-in-out;
+    font-size: 2vw;
 }
 
 .menuEssentials:hover {
     background-color: #550077;
 }
 
+.add-btn {
+    background-color: snow;
+    color: black;
+    padding:2%;
+    font-size: 2vw;
+    padding-right: 5%;
+    border-radius: 30px;
+    padding-left: 5%;
+    position: sticky;
+    width: 60%;
+    bottom: 5%;
+    left: 5%;
+    border: snow 1px solid;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.add-btn:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: snow;
+}
+
 #bMenu {
     position: fixed;
     right: 0;
     top: 0;
-    width: 3%;
+    height: 5%;
     aspect-ratio: 1/1;
     background-color: #550077;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2vw;
+    font-size: 2.5vw;
     font-weight: bolder;
     color:white;
     transition: all 0.3s ease-in-out;
@@ -265,33 +363,71 @@ a:hover {
     width: 47%;
     float: left;
     aspect-ratio: 4/3;
-    border-radius: 5px;
+    border-radius: 25px;
     margin-top: 2%;
+    position: relative;
 }
 
 .todoItem {
-    width: 100%;
+    width: 80%;
+    height: 5%;
     transition: all 0.3s ease;
-    margin-top: 1px;
-    margin-bottom: 1px;
+    padding: 3%;
+    margin: 5% auto;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+}
+
+.todoItem:last-of-type {
+    margin-bottom: 20%;
+}
+
+.todoItem p {
+    float: left;
+    font-size: 2vw;
+}
+
+.todoItem .todoBtn {
+    height: 90%;
+    aspect-ratio: 1/1;
+    background-color: #D9D9D9;
+    border: #D9D9D9 solid 3px;
+    border-radius: 50%;
+    float: right;
+    transition: background-color 0.3s ease;
+}
+
+.todoBtn:hover {
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .todoItem:hover {
     background-color: rgba(255, 255, 255, 0.4);
 }
 
-.todoHeader {
-    text-align: center;
-    background-color: #550077;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border: #550077 solid 1px;
-    transition: all 0.3s ease;
-    
+.add-todo {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    width: 10%;
+    aspect-ratio: 1/1;
+    background-color: snow;
+    color: black;
+    border: snow solid 1px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2vw;
+    font-weight: bolder;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.todoHeader:hover {
+.add-todo:hover {
     background-color: transparent;
+    color: snow;
+    cursor: pointer;
 }
 
 /*END*/

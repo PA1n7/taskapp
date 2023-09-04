@@ -1,10 +1,28 @@
 {
-    "30/8/2023":[
-        "Today I tested the save data files",
-        "Hello, world!",
-        "I need to make a todo"
+    "3/9/2023":[{
+        "Title":"New Update",
+        "color":"#B49A2F",
+        "text":"I have updated the calendar events, also revamped the design of the app"
+    },
+    {
+        "Title":"Test",
+        "color":"#008400",
+        "text":"Just a test for multiple events"
+    },
+    {
+        "Title":"Long text test",
+        "color":"#FFFFFF",
+        "text":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, labore obcaecati? Excepturi doloribus ducimus repellendus, dolorum a culpa dicta esse veniam temporibus. Distinctio impedit animi commodi blanditiis inventore rem odit dolor consequuntur neque error. Animi numquam, deleniti accusantium maxime sed labore odit! Atque, molestias iusto eius possimus accusamus sed quibusdam dolor repellat dolore ipsa nam ducimus reprehenderit explicabo sapiente modi asperiores totam ipsam ratione eaque laudantium! Eius delectus libero odio possimus illum? Accusantium itaque laboriosam exercitationem temporibus nemo debitis earum iste eos consectetur! Culpa impedit autem sit, praesentium laborum dolorem, ut illum quas iusto voluptas odit asperiores esse exercitationem rem."
+    },
+    {
+        "Title":"scroll on menu test",
+        "color":"#560056",
+        "text":"testing if it can scroll when there is an overflow, because at the moment there isn't anything that handles that"
+    }
     ],
-    "1/8/2023":[
-        "This is a test"
-    ]
+    "2/9/2023":[{
+        "Title":"Test for add btn",
+        "color":"#FFFFFF",
+        "text":"probably doesn't go to bottom, imma leave it like that tho"
+    }]
 }

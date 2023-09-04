@@ -8,13 +8,16 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+    <div class="full-bg"></div>
+    <div class="title-bar"><img src="./images/notebook.png" height="80%">Taskapp</div>
     <div class="bg" style="display: none"><div class="inputText"><div><input type="text" id="askText"><button class="submitText">Submit</button></div></div></div>
     <div id="bMenu" style="opacity: 1;">≡</div>
     <div id="menu" class="priority-3" style="right: -100%">
         <div class="menuEssentials">CLOSE</div>
         <div class="menu-content"></div>
+        <div class="add-btn">Tap to add event +</div>
     </div>
-    <div id="calendar" class="content-div priority-1">
+    <div id="calendar" class="content-div priority-3">
         <div class="inner-content">
             <div id="date-info"><a id="prevMonth" class="button"><</a><span id="datemonth"></span><a id="nextMonth" class="button">></a></div>
             <div id="week-days-top">
@@ -32,10 +35,10 @@
         </div>
     </div>
     <div class="content-div section">
-        <div class="TODO priority-1">
-            <div class="todoHeader">Add TODO</div>
+        <div class="TODO priority-3">
+            <div class="add-todo">+</div>
         </div>
-        <div class="notes priority-1"></div>
+        <div class="notes priority-3"></div>
     </div>
 </body>
 </html>

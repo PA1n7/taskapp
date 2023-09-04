@@ -54,7 +54,6 @@ function setMonth(start, month, year){
         daySquares.appendChild(dayRow)
     }
     setTimeout(()=>{
-        let colors = ["blue", "green", "yellow", "red", "white", "black"]
         let TempKeys = Object.keys(date_info)
         for (let i= 0; i<TempKeys.length; i++){
             let tempData = date_info[TempKeys[i]]
@@ -62,10 +61,10 @@ function setMonth(start, month, year){
                 for(let z = 0; z<tempData.length; z++){
                     let tempButton = document.createElement("div")
                     tempButton.classList.add("colorNote")
-                    tempButton.style.backgroundColor = choice(colors)
+                    tempButton.style.backgroundColor = tempData[z]["color"]
                     let tempNote = document.createElement("div")
                     tempNote.classList.add("hiddenNote")
-                    tempNote.innerText = tempData[z]
+                    tempNote.innerText = tempData[z]["Title"]
                     tempButton.appendChild(tempNote)
                     document.getElementById(TempKeys[i]).appendChild(tempButton)
                 }
@@ -99,7 +98,19 @@ function menuAlert(text, stack = true){
     if(!stack){menuContent.innerHTML = ""}
     let textEle = document.createElement("div")
     textEle.classList.add("menu-item")
-    textEle.innerText = text
+    let noteHead = document.createElement("div")
+    noteHead.classList.add("noteHead")
+    let title = document.createElement("h1")
+    title.innerText = text["Title"]
+    let colored_circle = document.createElement("div")
+    colored_circle.classList.add("circle")
+    colored_circle.style.backgroundColor = text["color"]
+    noteHead.appendChild(title)
+    noteHead.appendChild(colored_circle)
+    textEle.appendChild(noteHead)
+    let inText = document.createElement("p")
+    inText.innerText = text["text"]
+    textEle.appendChild(inText)
     menuContent.appendChild(textEle)
     showMenu()
 }
@@ -134,7 +145,7 @@ function choice(arr){
 
 window.api.receive("fromMain", (data)=>{
     if(data[0] == undefined){
-        if(awaiting){menuAlert("There's no info saved on this day...", false)};
+        if(awaiting){menuAlert({"Title":"There's no info saved on this day...", "color":"none", "text":""}, false)};
         return
     }
     if (!awaiting){
@@ -152,7 +163,12 @@ window.api.receive("todoSend", (data)=>{
     for(let i = 0; i<data.length; i++){
         let NewEntry = document.createElement("div")
         NewEntry.classList.add("todoItem")
-        NewEntry.innerText = data[i];
+        let text = document.createElement("p")
+        text.innerText = data[i]
+        let cButt = document.createElement("div")
+        cButt.classList.add("todoBtn")
+        NewEntry.appendChild(text)
+        NewEntry.appendChild(cButt)
         todoDIV.appendChild(NewEntry)
     }
 })
