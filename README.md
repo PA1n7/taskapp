@@ -6,9 +6,13 @@
 Fixed the General UI
 There was an error getting first date of month which was fixed using the following line
 > if (start < 0){start = 7+start}
+
 The saved_data.json changed the way it saves the events from an array
+
 > ["This is just a test", "Hello"]
+
 to a dict that includes Title, color, and text
+
 > {"3/9/2023":[{"Title":"Test", "color":"#000000", "text":"test"}]}
 
 ## TODO
