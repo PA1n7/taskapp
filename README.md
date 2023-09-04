@@ -31,20 +31,20 @@ to a dict that includes Title, color, and text
 ```
 
 ## TODO
-*Create a sytem to add events to calendar*
+### *Create a sytem to add events to calendar*
 
 > Add color to events
 
 > Add text to events
 
-*Create system to add things in todo*
+### *Create system to add things in todo*
 
 ~~Redesign~~
 
-*Create text writer*
+### *Create text writer*
 
-*Create the possibility to add custom themes*
+### *Create the possibility to add custom themes*
 
-*App Settings*
+### *App Settings*
 
 ~~Read properly the new saved_data.json~~
