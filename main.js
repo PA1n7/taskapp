@@ -60,8 +60,12 @@ ipcMain.on("todoGet", (event, args)=>{
     if(data[0]=="send"){
         if(data[1]=="todo"){
             console.log("writing file...")
-            console.log('["'+data.slice(2).join(" ").split(",").join('","')+'"]')
-            fs.writeFile("todo.json", '["'+data.slice(2).join(" ").split(",").join('","')+'"]', (err)=>{if(err)throw err})
+            let final_res = data.slice(2).join(" ").split(",").join('","')
+            let f_res = "[]"
+            if (final_res != ""){
+                f_res = ('["'+final_res+'"]')
+            }
+            fs.writeFile("todo.json", f_res, (err)=>{if(err)throw err})
             console.log("File written!")
         }
     }

@@ -1,3 +1,5 @@
+//Definitely forgot to comment this section but I aint gonna do it
+
 let daySquares = document.getElementById("day-squares")
 let date = new Date()
 let dpm = {0: 31, 1:28, 2:31, 3:30, 4:31, 5:30, 6:31, 7:31, 8:30, 9:31, 10:30, 11:31}
@@ -13,6 +15,21 @@ let currDate;
 let todo = "";
 let submit_code = ""
 let response_func;
+let tasks;
+
+//Just general functions
+
+function choice(arr){
+    return (arr[(Math.floor(Math.random() * arr.length))]);
+}
+
+function remove_undef(arr){
+    let temp_arr = []
+    for(let i = 0; i<arr.length; i++){
+        if(arr[i]!=undefined){temp_arr.push(arr[i])}
+    }
+    return temp_arr
+}
 
 function setMonth(start, month, year){
     awaiting = false
@@ -139,10 +156,6 @@ function showMenu(){
     }
 }
 
-function choice(arr){
-    return (arr[(Math.floor(Math.random() * arr.length))]);
-}
-
 window.api.receive("fromMain", (data)=>{
     if(data[0] == undefined){
         if(awaiting){menuAlert({"Title":"There's no info saved on this day...", "color":"none", "text":""}, false)};
@@ -159,6 +172,13 @@ window.api.receive("fromMain", (data)=>{
 
 window.api.receive("todoSend", (data)=>{
     let todoDIV = document.getElementsByClassName("TODO")[0]
+    let todoItems = document.getElementsByClassName("todoItem")
+    console.log(todoItems.length)
+    for(let n = 0; n<todoItems.length; n++){
+        console.log(todoItems[0])
+        todoItems[0].remove()
+    }
+    tasks = data;
     todo = data.toString()
     for(let i = 0; i<data.length; i++){
         let NewEntry = document.createElement("div")
@@ -167,6 +187,12 @@ window.api.receive("todoSend", (data)=>{
         text.innerText = data[i]
         let cButt = document.createElement("div")
         cButt.classList.add("todoBtn")
+        cButt.onclick = ()=>{
+            tasks[i] = undefined
+            cButt.parentElement.remove()
+            let returnTasks = remove_undef(tasks)
+            window.api.send("todoGet", "send todo "+returnTasks)
+        }
         NewEntry.appendChild(text)
         NewEntry.appendChild(cButt)
         todoDIV.appendChild(NewEntry)
@@ -207,4 +233,12 @@ function ask(resFunc){
     }
     document.getElementsByClassName("bg")[0].style.display = "block"
     await_response()
+}
+
+function add_todo(text){
+    console.log(tasks)
+    tasks.push(text)
+    let returnTasks = remove_undef(tasks)
+    window.api.send("todoGet", "send todo "+returnTasks)
+    window.api.send("todoGet", "get todo")
 }

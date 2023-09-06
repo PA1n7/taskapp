@@ -2,6 +2,8 @@
 
 ## There is still no official release of the app
 
+## I'm still missing to fix the writing system for todo among others
+
 ## Recent updates
 Fixed the General UI
 
@@ -48,3 +50,5 @@ to a dict that includes Title, color, and text
 ### *App Settings*
 
 ~~Read properly the new saved_data.json~~
+
+## I'm still missing everything that has to do with the budgeting segment of the app
