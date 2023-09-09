@@ -44,6 +44,9 @@ ipcMain.on("toMain", (event, args)=>{
             win.webContents.send("fromMain", [response, data[1]])
         })
     }
+    if(data[0] == "send"){
+        //TODO
+    }
 })
 
 ipcMain.on("todoGet", (event, args)=>{
