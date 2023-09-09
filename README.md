@@ -3,6 +3,8 @@
 ## There is still no official release of the app
 
 ## Recent updates
+Added the option to add Events to the calendar
+
 Fixed the TODO writing system so that is now done.
 
 Fixed the General UI
@@ -33,15 +35,8 @@ to a dict that includes Title, color, and text
 ```
 
 ## TODO
-### *Create a sytem to add events to calendar*
 
-> Add color to events
-
-> Add text to events
-
-### *Create system to add things in todo*
-
-~~Redesign~~
+### *Create the possibility to edit or delete todo events*
 
 ### *Create text writer*
 
@@ -49,6 +44,20 @@ to a dict that includes Title, color, and text
 
 ### *App Settings*
 
+## Completed TODO
+
+~~Create a sytem to add events to calendar~~
+
+~~Add color to events~~
+
+~~Add text to events~~
+
+~~Create system to add things in todo~~
+
+~~Redesign~~
+
 ~~Read properly the new saved_data.json~~
+
+
 
 ## I'm still missing everything that has to do with the budgeting segment of the app

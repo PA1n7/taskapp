@@ -45,7 +45,11 @@ ipcMain.on("toMain", (event, args)=>{
         })
     }
     if(data[0] == "send"){
-        //TODO
+        console.log("sending info...")
+        let final_res = (data.slice(1).join(" "))
+        console.log("writing file...")
+        fs.writeFile("saved_data.json", final_res, (err)=>{if(err){throw err}})
+        console.log("information succesfully saved!")
     }
 })
 

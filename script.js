@@ -17,6 +17,7 @@ let submit_code = ""
 let response_func;
 let tasks;
 let itemTODO = [];
+let expectedDay;
 
 //Just general functions
 
@@ -55,6 +56,7 @@ function setMonth(start, month, year){
                 window.api.send("toMain", `read ${tempDay}/${month+1}/${year}`)
                 dayDiv.onclick = ()=>{
                     awaiting = true
+                    expectedDay = `${tempDay}/${month+1}/${year}`
                     window.api.send("toMain", `read ${tempDay}/${month+1}/${year}`)
                     console.log("sent command "+`read ${tempDay}/${month+1}/${year}`)
                 }
@@ -73,6 +75,7 @@ function setMonth(start, month, year){
     }
     setTimeout(()=>{
         let TempKeys = Object.keys(date_info)
+        console.log(date_info)
         for (let i= 0; i<TempKeys.length; i++){
             let tempData = date_info[TempKeys[i]]
             if(tempData!=undefined){
@@ -95,7 +98,6 @@ function setMonth(start, month, year){
 }
 
 setMonth(start, currMonth, currYear);
-
 
 document.getElementById("prevMonth").onclick = ()=>{
     if (currMonth == 0){currMonth = 11; currYear--}else{currMonth--}
@@ -232,6 +234,8 @@ function ask(resFunc){
         submit_code = document.getElementById("askText").value
     }
     document.getElementsByClassName("bg")[0].style.display = "block"
+    let exit = document.getElementById("exitMenus")
+    exit.style.display = "block"
     await_response()
 }
 
@@ -241,4 +245,80 @@ function add_todo(text){
     let returnTasks = remove_undef(tasks)
     window.api.send("todoGet", "send todo "+returnTasks)
     window.api.send("todoGet", "get todo")
+    customAlert("Added Item to todo!", false)
+    let exit = document.getElementById("exitMenus")
+    exit.style.display = "none"
+}
+
+function createNewEvent(){
+    let newtitle = document.querySelector(".inputEvents div input[type=text]").value
+    let color = document.querySelector(".inputEvents div input[type=color]").value
+    let desc = document.querySelector(".inputEvents textarea").value
+    console.log(expectedDay)
+    if(expectedDay){
+        if (newtitle != ""){
+            document.querySelector(".inputEvents div input[type=text]").value = ""
+            document.querySelector(".inputEvents div input[type=color]").value = "#ffffff"
+            document.querySelector(".inputEvents textarea").value = ""
+            if (Object.keys(date_info).includes(expectedDay)){
+                date_info[expectedDay].push({
+                    "Title":newtitle,
+                    "color":color,
+                    "text":desc
+                })
+            }else{
+                date_info[expectedDay] = [{
+                    "Title":newtitle,
+                    "color":color,
+                    "text":desc
+                }]
+            }
+            console.log(date_info)
+            document.getElementsByClassName("addEvent")[0].style.display = "none"
+            window.api.send("toMain", `send ${JSON.stringify(date_info)}`)
+            customAlert("Added Event to calendar!", false)
+            setMonth(start, currMonth, currYear);
+            let exit = document.getElementById("exitMenus")
+            exit.style.display = "none"
+        }else{
+            customAlert("Put something in the title of the event!")
+        }
+    }else{
+        customAlert("ERROR No expected day requested!")
+    }
+}
+
+function openEventTab(){
+    document.getElementsByClassName("addEvent")[0].style.display = "block"
+    let menuItem = document.getElementById("menu")
+    menuItem.style.right = "-100%"
+    let bM = document.getElementById("bMenu")
+    bM.style.opacity = "1"
+    let exit = document.getElementById("exitMenus")
+    exit.style.display = "block"
+}
+
+function customAlert(txt, bad=true){
+    let alertObj = document.getElementsByClassName("alert")[0]
+    if(bad){
+        alertObj.style.backgroundColor = "#740000"
+    }else{
+        alertObj.style.backgroundColor = "#007400"
+    }
+    alertObj.innerText = txt
+    alertObj.style.top = "3.5%"
+    setTimeout(()=>{
+        alertObj.style.top = "-100%"
+    }, 3000)
+}
+
+{
+    let exit = document.getElementById("exitMenus")
+    exit.onclick = ()=>{
+        let bgs = document.getElementsByClassName("bg")
+        for(let i = 0; i<bgs.length; i++){
+            bgs[i].style.display = "none"
+        }
+        exit.style.display = "none"
+    }
 }

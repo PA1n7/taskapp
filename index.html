@@ -8,14 +8,17 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+    <div id="exitMenus">x</div>
+    <div class="alert" style="top: -100%"></div>
     <div class="full-bg"></div>
     <div class="title-bar"><img src="./images/notebook.png" height="80%">Taskapp</div>
     <div class="bg" style="display: none"><div class="inputText"><div><input type="text" id="askText"><button class="submitText">Submit</button></div></div></div>
+    <div class="bg addEvent" style="display: none"><div class="inputEvents"><div><input type="text" placeholder="Title"><input type="color" name="" id=""></div><textarea name="" id="" cols="30" rows="10" placeholder="Description"></textarea><button type="button" onclick="createNewEvent()">Submit</button></div></div>
     <div id="bMenu" style="opacity: 1;">≡</div>
     <div id="menu" class="priority-3" style="right: -100%">
         <div class="menuEssentials">CLOSE</div>
         <div class="menu-content"></div>
-        <div class="add-btn">Tap to add event +</div>
+        <div class="add-btn" onclick="openEventTab()">Tap to add event +</div>
     </div>
     <div id="calendar" class="content-div priority-3">
         <div class="inner-content">

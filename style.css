@@ -461,6 +461,10 @@ a:hover {
     text-align: center;
 }
 
+.inputText * {
+    font-size: 2vw;
+}
+
 .inputText input {
     background-color: #121212;
     outline: none;
@@ -500,6 +504,119 @@ a:hover {
     position: fixed;
     top:0;
     left:0;
+}
+
+.inputEvents {
+    width: 50%;
+    aspect-ratio: 4/3;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+}
+
+.inputEvents * {
+    display: block;
+    margin: 0 auto;
+    margin-top: 2%;
+    background-color: #121212;
+    outline: none;
+    border: none;
+    padding: 1%;
+    border-radius: 5px;
+    border: 1px solid #121212;
+    width: 60%;
+    font-size: 2vw;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.inputEvents *:not(div):hover, .inputEvents *:focus {
+    background-color: transparent;
+    color: #121212;
+}
+
+.inputEvents div input[type=text]:hover, .inputEvents div input[type=text]:focus {
+    background-color: #D9D9D9;
+    color: #121212;
+}
+
+.inputEvents input[type=text], .inputEvents input[type=color]{
+    display:inline-block;
+}
+
+.inputEvents input[type=color]{
+    aspect-ratio: 1/1;
+    width: 10%;
+    height: 100%;
+    float: right;
+    padding: 0;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.inputEvents div *{
+    height: 3vh;
+    border: #D9D9D9 solid 1px;
+    margin-top: 0;
+}
+
+.inputEvents input[type=color]::-webkit-color-swatch {
+    border: 1px solid #d9d9d9;
+}
+.inputEvents input[type=color]::-moz-color-swatch {
+    border: 1px solid #D9D9D9;
+}
+
+.inputEvents div {
+    height: 10%;
+}
+
+.inputEvents button {
+    color: #D9D9D9;
+}
+
+#exitMenus {
+    position: fixed;
+    right: 0;
+    top: 0;
+    font-size: 3vw;
+    color: #d9d9d9;
+    z-index: 1001;
+    font-family: Arial, Helvetica, sans-serif;
+    display: none;
+    transition: color 0.3s ease;
+}
+
+#exitMenus:hover {
+    color: #b7b7b7;
+    cursor: pointer;
+}
+
+/*END*/
+
+/*ALERTS*/
+
+.alert {
+    position: fixed;
+    left: 50%;
+    width: 50%;
+    aspect-ratio: 15/1;
+    transform: translateX(-50%);
+    color: #D9D9D9;
+    border-radius: 50px;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2vw;
+    transition: top 0.3s ease-in-out;
 }
 
 /*END*/
