@@ -16,6 +16,7 @@ let todo = "";
 let submit_code = ""
 let response_func;
 let tasks;
+let itemTODO = [];
 
 //Just general functions
 
@@ -172,12 +173,10 @@ window.api.receive("fromMain", (data)=>{
 
 window.api.receive("todoSend", (data)=>{
     let todoDIV = document.getElementsByClassName("TODO")[0]
-    let todoItems = document.getElementsByClassName("todoItem")
-    console.log(todoItems.length)
-    for(let n = 0; n<todoItems.length; n++){
-        console.log(todoItems[0])
-        todoItems[0].remove()
+    for(let i = 0; i<itemTODO.length; i++){
+        itemTODO[i].remove()
     }
+    itemTODO = []
     tasks = data;
     todo = data.toString()
     for(let i = 0; i<data.length; i++){
@@ -196,6 +195,7 @@ window.api.receive("todoSend", (data)=>{
         NewEntry.appendChild(text)
         NewEntry.appendChild(cButt)
         todoDIV.appendChild(NewEntry)
+        itemTODO.push(NewEntry)
     }
 })
 

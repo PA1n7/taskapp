@@ -2,9 +2,9 @@
 
 ## There is still no official release of the app
 
-## I'm still missing to fix the writing system for todo among others
-
 ## Recent updates
+Fixed the TODO writing system so that is now done.
+
 Fixed the General UI
 
 There was an error getting first date of month which was fixed using the following line
