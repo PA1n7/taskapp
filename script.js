@@ -113,11 +113,14 @@ document.getElementById("nextMonth").onclick = ()=>{
     setMonth(start, currMonth, currYear);
 }
 
-function menuAlert(text, stack = true){
+function menuAlert(text, index, stack = true){
     let menuContent = document.getElementsByClassName("menu-content")[0]
     if(!stack){menuContent.innerHTML = ""}
     let textEle = document.createElement("div")
     textEle.classList.add("menu-item")
+    textEle.onclick = ()=>{
+        deleteEvent(expectedDay, index)
+    }
     let noteHead = document.createElement("div")
     noteHead.classList.add("noteHead")
     let title = document.createElement("h1")
@@ -169,7 +172,7 @@ window.api.receive("fromMain", (data)=>{
         return
     }
     for(let i = 0; i<data[0].length; i++){
-        if (i == 0){menuAlert(data[0][i], false)}else{menuAlert(data[0][i])}
+        if (i == 0){menuAlert(data[0][i], i, false)}else{menuAlert(data[0][i], i)}
     }
 })
 
@@ -321,4 +324,9 @@ function customAlert(txt, bad=true){
         }
         exit.style.display = "none"
     }
+}
+
+function deleteEvent(dat, title){
+    date_info[dat].splice(index, 1)
+    console.log(date_info)
 }

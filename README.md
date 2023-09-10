@@ -44,6 +44,10 @@ to a dict that includes Title, color, and text
 
 ### *App Settings*
 
+### *Final UI*
+
+### *Budgeting* (optional)
+
 ## Completed TODO
 
 ~~Create a sytem to add events to calendar~~
@@ -57,7 +61,3 @@ to a dict that includes Title, color, and text
 ~~Redesign~~
 
 ~~Read properly the new saved_data.json~~
-
-
-
-## I'm still missing everything that has to do with the budgeting segment of the app
