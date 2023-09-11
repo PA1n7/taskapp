@@ -1,8 +1,8 @@
 * {
     margin: 0;
     padding: 0;
-    color: white;
-    font-family: serif;
+    color: var(--color);
+    font-family: var(--font);
     font-weight: bold;
     user-select: none;
 }
@@ -20,19 +20,89 @@ body {
     z-index: -1;
     width: 100%;
     height: 100%;
-    background-image: url("https://wallpapers.com/images/featured/landscape-293chzhp3r67ag4a.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     top: 0;
     left: 0;
 }
 
+.full-bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*Settings*/
+
+.settings {
+    width: 30%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left:-100%;
+    z-index: 1000;
+    background-color: var(--p4);
+    color: var(--contrast);
+    font-size: 2vw;
+    transition: left 0.3s ease;
+}
+
+.settings img{
+    width: 7.5%;
+    margin-right: 3%;
+}
+
+.settings div {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    background-color: var(--lp2);
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.settings div:hover{
+    color: var(--contrast);
+    background-color: var(--lp4);
+    cursor: pointer;
+}
+
+#currTheme, option {
+    color: var(--contrast)
+}
+
+.themeChange {
+    text-align: center;
+}
+
+.settingsTab {
+    width: 2%;
+    background-color: var(--p3);
+    height: 75%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: background-color 0.3s ease;
+}
+
+.settingsTab:hover + .settings, .settings:hover {
+    left:0;
+}
+
+.settingsTab:hover, .settings:hover + .settingsTab {
+    background-color: transparent;
+}
+
+/*END*/
+
 /*TITLE BAR*/
 
 .title-bar {
     width: 100%;
     height: 5%;
-    background-color: #121212;
+    background-color: var(--bg);
     position: absolute;
     top: 0;
     left: 0;
@@ -71,19 +141,19 @@ a:hover {
 /*PRIORITY BACKGROUND*/
 
 .priority-1 {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--p1);
 }
 
 .priority-2 {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--p2);
 }
 
 .priority-3 {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: var(--p3);
 }
 
 .priority-4 {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: var(--p4);
 }
 
 /*END*/
@@ -106,18 +176,18 @@ a:hover {
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #121212;
+    background: var(--bg);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #550077;
+    background: var(--darkMain);
     border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #660088;
+    background: var(--lightMain);
 }
 
 /*SCROLLBAR END*/
@@ -149,15 +219,15 @@ a:hover {
     aspect-ratio: 2/1;
     display:inline-block;
     border-radius: 5px;
-    border: #565656 1px solid;
+    border: var(--back) 1px solid;
     padding: 5px;
     transition: all 0.3s ease-in-out;
     font-size: 1.5vw;
 }
 
 .hoverable-day:hover {
-    background-color: #565656;
-    border-color: white;
+    background-color: var(--back);
+    border-color: var(--color);
     cursor: pointer;
 }
 
@@ -179,16 +249,16 @@ a:hover {
 }
 
 .button {
-    color: white;
+    color: var(--color);
     transition: all 0.3s ease-in;
 }
 
 .button:hover {
-    color: #565656;
+    color: var(--back);
 }
 
 .current-day {
-    border: #660088 1px solid !important;
+    border: var(--lightMain) 1px solid !important;
 }
 
 /*END*/
@@ -206,17 +276,17 @@ a:hover {
 }
 
 .menu-item {
-    color: snow;
+    color: var(--color);
     padding: 2%;
     font-size: small;
     height: 20%;
     width: 90%;
     margin: 0 auto;
     border-radius: 10px;
-    background-color: #550077;
+    background-color: var(--darkMain);
     margin-top: 1.25%;
     margin-bottom: 1.25%;
-    border: #550077 solid 1px;
+    border: var(--darkMain) solid 1px;
     transition: background-color 0.3s ease-in-out;
 }
 
@@ -262,7 +332,7 @@ a:hover {
 }
 
 .menuEssentials {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: var(--p4);
     text-align: center;
     height: 5%;
     display: flex;
@@ -273,12 +343,12 @@ a:hover {
 }
 
 .menuEssentials:hover {
-    background-color: #550077;
+    background-color: var(--darkMain);
 }
 
 .add-btn {
-    background-color: snow;
-    color: black;
+    background-color: var(--color);
+    color: var(--contrast);
     padding:2%;
     font-size: 2vw;
     padding-right: 5%;
@@ -288,14 +358,14 @@ a:hover {
     width: 60%;
     bottom: 5%;
     left: 5%;
-    border: snow 1px solid;
+    border: var(--color) 1px solid;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .add-btn:hover {
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: snow;
+    background-color: var(--p4);
+    color: var(--color);
 }
 
 #bMenu {
@@ -304,15 +374,15 @@ a:hover {
     top: 0;
     height: 5%;
     aspect-ratio: 1/1;
-    background-color: #550077;
+    background-color: var(--darkMain);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2.5vw;
     font-weight: bolder;
-    color:white;
+    color:var(--color);
     transition: all 0.3s ease-in-out;
-    border: #550077 solid 1px;
+    border: var(--darkMain) solid 1px;
 }
 
 #bMenu:hover{
@@ -334,10 +404,10 @@ a:hover {
 .hiddenNote {
     position: absolute;
     opacity: 0;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: var(--lp3);
     border-radius: 5px;
     padding: 10px;
-    color: black;
+    color: var(--contrast);
     display: none;
 }
 
@@ -368,13 +438,30 @@ a:hover {
     position: relative;
 }
 
+.task {
+    background-color: var(--darkMain);
+    color: var(--color);
+    font-size: 1vw;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.TODOheader {
+    height: 7%;
+    width: 100%;
+    font-size: 2vw;
+    font-weight: bolder;
+    text-align: center;
+    border-bottom: var(--color) solid 1px;
+}
+
 .todoItem {
     width: 80%;
     height: 5%;
     transition: all 0.3s ease;
     padding: 3%;
     margin: 5% auto;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: var(--lp2);
     border-radius: 25px;
 }
 
@@ -390,8 +477,8 @@ a:hover {
 .todoItem .todoBtn {
     height: 90%;
     aspect-ratio: 1/1;
-    background-color: #D9D9D9;
-    border: #D9D9D9 solid 3px;
+    background-color: var(--color);
+    border: var(--color) solid 3px;
     border-radius: 50%;
     float: right;
     transition: background-color 0.3s ease;
@@ -403,7 +490,7 @@ a:hover {
 }
 
 .todoItem:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: var(--lp2);
 }
 
 .add-todo {
@@ -412,9 +499,9 @@ a:hover {
     right: 5%;
     width: 10%;
     aspect-ratio: 1/1;
-    background-color: snow;
-    color: black;
-    border: snow solid 1px;
+    background-color: var(--color);
+    color: var(--contrast);
+    border: var(--color) solid 1px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -426,7 +513,7 @@ a:hover {
 
 .add-todo:hover {
     background-color: transparent;
-    color: snow;
+    color: var(--color);
     cursor: pointer;
 }
 
@@ -453,7 +540,7 @@ a:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: var(--lp3);
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -466,25 +553,26 @@ a:hover {
 }
 
 .inputText input {
-    background-color: #121212;
+    background-color: var(--bg);
     outline: none;
     box-shadow: none;
     border: none;
     display: block;
-    color: white;
+    color: var(--color);
     width: 100%;
     padding: 5px;
-    border: solid 1px #121212;
+    border: solid 1px var(--bg);
     border-radius: 5px;
     transition: all 0.6s ease;
 }
 
 .inputText button {
     margin-top: 5px;
-    background-color: black;
+    background-color: var(--contrast);
     border: none;
     padding: 5px;
-    border: 1px solid black;
+    width: 70%;
+    border: 1px solid var(--contrast);
     transition: all 0.3s ease;
 }
 
@@ -496,10 +584,30 @@ a:hover {
     background-color: transparent;
 }
 
+.inputText input[type=date] {
+    color-scheme: dark;
+    display: none;
+    margin-top: 2%;
+}
+
+.inputText label {
+    color:var(--bg);
+    font-size: 1.5vw;
+}
+
+.inputText input[type=checkbox]{
+    width: 10%;
+    display: inline-block;
+}
+
+.inputText input[type=checkbox]:checked + input[type=date]{
+    display: block;
+}
+
 .bg {
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: var(--p4);
     z-index: 1000;
     position: fixed;
     top:0;
@@ -513,7 +621,7 @@ a:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: var(--lp3);
     border-radius: 5px;
 }
 
@@ -521,25 +629,26 @@ a:hover {
     display: block;
     margin: 0 auto;
     margin-top: 2%;
-    background-color: #121212;
+    background-color: var(--bg);
     outline: none;
     border: none;
     padding: 1%;
     border-radius: 5px;
-    border: 1px solid #121212;
+    border: 1px solid var(--bg);
     width: 60%;
+    resize: none;
     font-size: 2vw;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .inputEvents *:not(div):hover, .inputEvents *:focus {
     background-color: transparent;
-    color: #121212;
+    color: var(--bg);
 }
 
 .inputEvents div input[type=text]:hover, .inputEvents div input[type=text]:focus {
-    background-color: #D9D9D9;
-    color: #121212;
+    background-color: var(--color);
+    color: var(--bg);
 }
 
 .inputEvents input[type=text], .inputEvents input[type=color]{
@@ -563,15 +672,15 @@ a:hover {
 
 .inputEvents div *{
     height: 3vh;
-    border: #D9D9D9 solid 1px;
+    border: var(--color) solid 1px;
     margin-top: 0;
 }
 
 .inputEvents input[type=color]::-webkit-color-swatch {
-    border: 1px solid #d9d9d9;
+    border: 1px solid var(--color);
 }
 .inputEvents input[type=color]::-moz-color-swatch {
-    border: 1px solid #D9D9D9;
+    border: 1px solid var(--color);
 }
 
 .inputEvents div {
@@ -579,7 +688,7 @@ a:hover {
 }
 
 .inputEvents button {
-    color: #D9D9D9;
+    color: var(--color);
 }
 
 #exitMenus {
@@ -587,7 +696,7 @@ a:hover {
     right: 0;
     top: 0;
     font-size: 3vw;
-    color: #d9d9d9;
+    color: var(--color);
     z-index: 1001;
     font-family: Arial, Helvetica, sans-serif;
     display: none;
@@ -597,6 +706,41 @@ a:hover {
 #exitMenus:hover {
     color: #b7b7b7;
     cursor: pointer;
+}
+
+.optns {
+    width: 20%;
+    aspect-ratio: 6/3;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color);
+    padding: 1%;
+    border-radius: 100px;
+}
+
+.optns button {
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    padding: 1%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.optns button:hover {
+    cursor: pointer;
+    background-color: var(--p3);
+}
+
+.optns img{
+    height: 50%;
+}
+
+.hiddenData {
+    display: none;
 }
 
 /*END*/
@@ -609,7 +753,7 @@ a:hover {
     width: 50%;
     aspect-ratio: 15/1;
     transform: translateX(-50%);
-    color: #D9D9D9;
+    color: var(--color);
     border-radius: 50px;
     z-index: 10000;
     display: flex;
@@ -617,6 +761,52 @@ a:hover {
     align-items: center;
     font-size: 2vw;
     transition: top 0.3s ease-in-out;
+}
+
+/*END*/
+
+/*NOTES*/
+
+.noteHeader {
+    height: 7%;
+    width: 100%;
+    border-bottom: var(--color) solid 1px;
+}
+
+.noteHeader .head {
+    font-size: 2vw;
+    float: left;
+    margin-left: 5%;
+    font-weight: bolder;
+}
+
+.noteHeader .noteInfo {
+    float: right;
+    margin-right: 5%;
+    font-size: 1.5vw;
+}
+
+#noteArea {
+    width: 97%;
+    height: 87%;
+    position: relative;
+    left: 1.5%;
+    top: 1.5%;
+    background-color: transparent;
+    border: transparent solid 1px;
+    border-radius: 4px;
+    resize: none;
+    transition: border 0.3s ease;
+    font-size: 1.5vw;
+}
+
+#noteArea:focus {
+    outline: none;
+    border: var(--color) solid 1px;
+}
+
+#noteArea:hover {
+    border: var(--color) solid 1px;
 }
 
 /*END*/

@@ -1,0 +1,19 @@
+{
+    "name":"Techno",
+    "background":"Themes/Techno/background.mp4",
+    "color":"snow",
+    "bg":"#63307a",
+    "dM":"#72ff47",
+    "lM":"#83ff58",
+    "back":"#b6ddaa",
+    "contrast":"black",
+    "p1":"rgba(99, 48, 122, 0.1)",
+    "p2":"rgba(99, 48, 122, 0.4)",
+    "p3":"rgba(99, 48, 122, 0.7)",
+    "p4":"rgba(99, 48, 122, 0.9)",
+    "lp1":"rgba(182, 221, 170, 0.1)",
+    "lp2":"rgba(182, 221, 170, 0.4)",
+    "lp3":"rgba(182, 221, 170, 0.7)",
+    "lp4":"rgba(182, 221, 170, 0.9)",
+    "font":"arial"
+}

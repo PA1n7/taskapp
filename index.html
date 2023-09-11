@@ -10,10 +10,20 @@
 <body>
     <div id="exitMenus">x</div>
     <div class="alert" style="top: -100%"></div>
+    <div class="settingsTab"></div>
+    <div class="settings">
+        <div onclick="showSettings()"><img src="images/settings.png" alt="" srcset="">Settings</div>
+        <div class="themeChange" style="display:none;"><select name="" id="currTheme">
+
+        </select></div>
+    </div>
     <div class="full-bg"></div>
-    <div class="title-bar"><img src="./images/notebook.png" height="80%">Taskapp</div>
-    <div class="bg" style="display: none"><div class="inputText"><div><input type="text" id="askText"><button class="submitText">Submit</button></div></div></div>
+    <div class="title-bar"><img src="./images/notebook.png" height="80%">Annual</div>
+    <div class="bg" style="display: none;"><div class="inputText"><div><input type="text" id="askText"><label for="">add to calendar</label><input type="checkbox" name="" id="todoCalendar"><input type="date" name="" id="todoDate"><button class="submitText">Submit</button></div></div></div>
     <div class="bg addEvent" style="display: none"><div class="inputEvents"><div><input type="text" placeholder="Title"><input type="color" name="" id=""></div><textarea name="" id="" cols="30" rows="10" placeholder="Description"></textarea><button type="button" onclick="createNewEvent()">Submit</button></div></div>
+    <div class="bg editMenu" style="display: none">
+        <div class="optns"><button onclick="openEditMenu()"><img src="images/edit.png" alt="" srcset=""></button><button onclick="simplerDeleteEvent()"><img src="images/trash-can.png" alt="" srcset=""></button><span class="hiddenData"></span></div>
+    </div>
     <div id="bMenu" style="opacity: 1;">≡</div>
     <div id="menu" class="priority-3" style="right: -100%">
         <div class="menuEssentials">CLOSE</div>
@@ -39,9 +49,13 @@
     </div>
     <div class="content-div section">
         <div class="TODO priority-3">
+            <div class="TODOheader">TODO</div>
             <div class="add-todo" onclick="ask(add_todo)">+</div>
         </div>
-        <div class="notes priority-3"></div>
+        <div class="notes priority-3">
+            <div class="noteHeader"><span class="head">Notes</span><span class="noteInfo"></span></div>
+            <textarea name="" id="noteArea" cols="30" rows="10"></textarea>
+        </div>
     </div>
 </body>
 </html>

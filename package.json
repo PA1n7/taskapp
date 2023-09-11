@@ -6,9 +6,9 @@
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "name": "Cash Track",
+  "name": "Annual",
   "version": "1.0.0",
-  "description": "Multi-purpose tool to track money and habits",
+  "description": "Multi-purpose tool to add events, create notes and add TODO",
   "main": "main.js",
   "dependencies": {
     "boolean": "^3.2.0",

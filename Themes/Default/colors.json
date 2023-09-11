@@ -1,0 +1,19 @@
+{
+    "name":"Default",
+    "background":"Themes/Default/background.jpg",
+    "color":"#d9d9d9",
+    "bg":"#121212",
+    "dM":"#550077",
+    "lM":"#660088",
+    "back":"#565656",
+    "contrast":"black",
+    "p1":"rgba(0, 0, 0, 0.1)",
+    "p2":"rgba(0, 0, 0, 0.4)",
+    "p3":"rgba(0, 0, 0, 0.7)",
+    "p4":"rgba(0, 0, 0, 0.9)",
+    "lp1":"rgba(255, 255, 255, 0.1)",
+    "lp2":"rgba(255, 255, 255, 0.4)",
+    "lp3":"rgba(255, 255, 255, 0.7)",
+    "lp4":"rgba(255, 255, 255, 0.9)",
+    "font":"Times New Roman"
+}

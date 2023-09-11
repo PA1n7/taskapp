@@ -3,6 +3,11 @@
 ## There is still no official release of the app
 
 ## Recent updates
+
+The most recent update, I did basically everything in the TODO (check down below for more details), I just need to finish moving the save files somewhere else so that in case there is an update the save files aren't lost completely.
+
+The folder called Techno has a video called background.mp4 which was excluded from push due to it's size
+
 Added the option to add Events to the calendar
 
 Fixed the TODO writing system so that is now done.
@@ -36,17 +41,7 @@ to a dict that includes Title, color, and text
 
 ## TODO
 
-### *Create the possibility to edit or delete todo events*
-
-### *Create text writer*
-
-### *Create the possibility to add custom themes*
-
-### *App Settings*
-
-### *Final UI*
-
-### *Budgeting* (optional)
+### *Change directory of save files for update proof*
 
 ## Completed TODO
 
@@ -61,3 +56,15 @@ to a dict that includes Title, color, and text
 ~~Redesign~~
 
 ~~Read properly the new saved_data.json~~
+
+~~Create the possibility to edit or delete todo events~~
+
+~~Create text writer~~
+
+~~Merge TODO and calendar~~
+
+~~Create the possibility to add custom themes~~
+
+~~App settings~~
+
+~~App UI~~

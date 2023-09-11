@@ -18,6 +18,9 @@ let response_func;
 let tasks;
 let itemTODO = [];
 let expectedDay;
+let editing = false;
+let checkChange;
+let taskArr = [];
 
 //Just general functions
 
@@ -104,6 +107,7 @@ document.getElementById("prevMonth").onclick = ()=>{
     let daysBack = dpm[currMonth]%7
     if(start-daysBack <= 0){start = 7+(start-daysBack)}else{start=start-daysBack}
     setMonth(start, currMonth, currYear);
+    window.api.send("todoGet", "get todo")
 }
 
 document.getElementById("nextMonth").onclick = ()=>{
@@ -111,15 +115,18 @@ document.getElementById("nextMonth").onclick = ()=>{
     if (daysFw+start > 7){start = (daysFw+start)-7}else{start = daysFw + start}
     if (currMonth == 11){currMonth = 0; currYear++}else{currMonth++}
     setMonth(start, currMonth, currYear);
+    window.api.send("todoGet", "get todo")
 }
 
-function menuAlert(text, index, stack = true){
+function menuAlert(text, stack = true){
     let menuContent = document.getElementsByClassName("menu-content")[0]
     if(!stack){menuContent.innerHTML = ""}
     let textEle = document.createElement("div")
     textEle.classList.add("menu-item")
     textEle.onclick = ()=>{
-        deleteEvent(expectedDay, index)
+        if(text["id"]>=0){
+            showOptns(expectedDay, text["id"])
+        }
     }
     let noteHead = document.createElement("div")
     noteHead.classList.add("noteHead")
@@ -140,12 +147,14 @@ function menuAlert(text, index, stack = true){
 
 {
     let mE = document.getElementsByClassName("menuEssentials")[0]
-    mE.onclick = ()=>{
-        let menuItem = document.getElementById("menu")
-        menuItem.style.right = "-100%"
-        let bM = document.getElementById("bMenu")
-        bM.style.opacity = "1"
-    }
+    mE.onclick = hideMenu
+}
+
+function hideMenu (){
+    let menuItem = document.getElementById("menu")
+    menuItem.style.right = "-100%"
+    let bM = document.getElementById("bMenu")
+    bM.style.opacity = "1"
 }
 
 function showMenu(){
@@ -163,8 +172,8 @@ function showMenu(){
 }
 
 window.api.receive("fromMain", (data)=>{
-    if(data[0] == undefined){
-        if(awaiting){menuAlert({"Title":"There's no info saved on this day...", "color":"none", "text":""}, false)};
+    if(data[0] == undefined || data[0].length == 0){
+        if(awaiting){menuAlert({"Title":"There's no info saved on this day...", "color":"none", "text":"", "id":-1}, false)};
         return
     }
     if (!awaiting){
@@ -172,11 +181,14 @@ window.api.receive("fromMain", (data)=>{
         return
     }
     for(let i = 0; i<data[0].length; i++){
-        if (i == 0){menuAlert(data[0][i], i, false)}else{menuAlert(data[0][i], i)}
+        if (i == 0){menuAlert(data[0][i], false)}else{menuAlert(data[0][i])}
     }
 })
 
 window.api.receive("todoSend", (data)=>{
+    for(let i = 0; i<taskArr.length; i++){
+        taskArr[i].remove()
+    }
     let todoDIV = document.getElementsByClassName("TODO")[0]
     for(let i = 0; i<itemTODO.length; i++){
         itemTODO[i].remove()
@@ -188,23 +200,44 @@ window.api.receive("todoSend", (data)=>{
         let NewEntry = document.createElement("div")
         NewEntry.classList.add("todoItem")
         let text = document.createElement("p")
-        text.innerText = data[i]
+        text.innerText = data[i]["name"]
         let cButt = document.createElement("div")
         cButt.classList.add("todoBtn")
         cButt.onclick = ()=>{
             tasks[i] = undefined
             cButt.parentElement.remove()
             let returnTasks = remove_undef(tasks)
-            window.api.send("todoGet", "send todo "+returnTasks)
+            window.api.send("todoGet", "send todo "+JSON.stringify(returnTasks))
+            window.api.send("todoGet", "get todo")
         }
         NewEntry.appendChild(text)
         NewEntry.appendChild(cButt)
         todoDIV.appendChild(NewEntry)
         itemTODO.push(NewEntry)
+        if(data[i]["date"] != ""){
+            let todoDate = data[i]["date"].split("/")
+            if(todoDate[1] == currMonth+1 && todoDate[2] == currYear){
+                setTimeout(()=>{
+                    let obj = document.getElementById(data[i]["date"])
+                    let newTask = document.createElement("div")
+                    newTask.classList.add("task")
+                    newTask.innerText = data[i]["name"]
+                    taskArr.push(newTask)
+                    obj.appendChild(newTask)
+                }, 800)
+            }
+        }
     }
 })
 
 window.api.send("todoGet", "get todo")
+
+window.api.receive("textSend", (data)=>{
+    let noteArea = document.getElementById("noteArea")
+    noteArea.value = data
+})
+
+window.api.send("textGet", "get")
 
 window.onresize = ()=>{
     console.log("resize")
@@ -242,11 +275,28 @@ function ask(resFunc){
     await_response()
 }
 
+function parseDate(val){
+    let arr = val.split("-")
+    if(arr[2].charAt(0) == 0){
+        arr[2] = arr[2].charAt(1)
+    }
+    if(arr[1].charAt(0) == 0){
+        arr[1] = arr[1].charAt(1)
+    }
+    return `${arr[2]}/${arr[1]}/${arr[0]}`
+}
+
 function add_todo(text){
-    console.log(tasks)
-    tasks.push(text)
+    document.getElementById("askText").value = ""
+    let date = "";
+    if(document.getElementById("todoCalendar").checked){
+        date = parseDate(document.getElementById("todoDate").value)
+    }
+    document.getElementById("todoCalendar").checked = false;
+    document.getElementById("todoDate").value = ""
+    tasks.push({"name":text, "date":date})
     let returnTasks = remove_undef(tasks)
-    window.api.send("todoGet", "send todo "+returnTasks)
+    window.api.send("todoGet", "send todo "+JSON.stringify(returnTasks))
     window.api.send("todoGet", "get todo")
     customAlert("Added Item to todo!", false)
     let exit = document.getElementById("exitMenus")
@@ -257,23 +307,40 @@ function createNewEvent(){
     let newtitle = document.querySelector(".inputEvents div input[type=text]").value
     let color = document.querySelector(".inputEvents div input[type=color]").value
     let desc = document.querySelector(".inputEvents textarea").value
-    console.log(expectedDay)
+    if(editing){
+        if (newtitle != ""){
+            let hD = document.getElementsByClassName("hiddenData")[0].innerText
+            editEvent(hD.split(" ")[0], hD.split(" ")[1], newtitle, color, desc)
+            editing = false
+        }else{
+            customAlert("You have to set a title")
+        }
+        return
+    }
     if(expectedDay){
         if (newtitle != ""){
             document.querySelector(".inputEvents div input[type=text]").value = ""
-            document.querySelector(".inputEvents div input[type=color]").value = "#ffffff"
+            document.querySelector(".inputEvents div input[type=color]").value = "#000000"
             document.querySelector(".inputEvents textarea").value = ""
+            console.log(date_info[expectedDay])
+            if(date_info[expectedDay] == [] || date_info[expectedDay] == undefined){
+                let nextId = 0
+            }else{
+                let nextId = date_info[expectedDay][date_info[expectedDay].length-1]["id"]+1
+            }
             if (Object.keys(date_info).includes(expectedDay)){
                 date_info[expectedDay].push({
                     "Title":newtitle,
                     "color":color,
-                    "text":desc
+                    "text":desc,
+                    "id":nextId
                 })
             }else{
                 date_info[expectedDay] = [{
                     "Title":newtitle,
                     "color":color,
-                    "text":desc
+                    "text":desc,
+                    "id":0
                 }]
             }
             console.log(date_info)
@@ -281,6 +348,7 @@ function createNewEvent(){
             window.api.send("toMain", `send ${JSON.stringify(date_info)}`)
             customAlert("Added Event to calendar!", false)
             setMonth(start, currMonth, currYear);
+            window.api.send("todoGet", "get todo");
             let exit = document.getElementById("exitMenus")
             exit.style.display = "none"
         }else{
@@ -326,7 +394,151 @@ function customAlert(txt, bad=true){
     }
 }
 
-function deleteEvent(dat, title){
-    date_info[dat].splice(index, 1)
-    console.log(date_info)
+function deleteEvent(dat, id){
+    for(let i = 0; i<date_info[dat].length; i++){
+        if (date_info[dat][i]["id"] == id){
+            date_info[dat].splice(i, 1)
+            break
+        }
+    }
+    window.api.send("toMain", `send ${JSON.stringify(date_info)}`)
+    customAlert("Deleted Event from calendar!", false)
+    setMonth(start, currMonth, currYear);
+    let exit = document.getElementById("exitMenus")
+    exit.style.display = "none"
+    let optns = document.getElementsByClassName("editMenu")[0]
+    optns.style.display = "none"
+}
+
+function simplerDeleteEvent(){
+    let hD = document.getElementsByClassName("hiddenData")[0].innerText
+    deleteEvent(hD.split(" ")[0], hD.split(" ")[1])
+}
+
+function editEvent(dat, id, title, color, text){
+    for(let i = 0; i<date_info[dat].length; i++){
+        if (date_info[dat][i]["id"] == id){
+            date_info[dat][i] = {
+                "Title":title,
+                "color":color,
+                "text":text,
+                "id":id
+            }
+        }
+        break
+    }
+    document.getElementsByClassName("addEvent")[0].style.display = "none"
+    window.api.send("toMain", `send ${JSON.stringify(date_info)}`)
+    customAlert("Edited Event in calendar!", false)
+    setMonth(start, currMonth, currYear);
+    let exit = document.getElementById("exitMenus")
+    exit.style.display = "none"
+}
+
+function showOptns(date, id){
+    let exit = document.getElementById("exitMenus")
+    exit.style.display = "block"
+    let optns = document.getElementsByClassName("editMenu")[0]
+    optns.style.display = "block"
+    let hD = document.getElementsByClassName("hiddenData")[0]
+    hD.innerText = `${date} ${id}`
+    hideMenu()
+}
+
+function openEditMenu(){
+    editing = true
+    let hD = document.getElementsByClassName("hiddenData")[0].innerText
+    let optns = document.getElementsByClassName("editMenu")[0]
+    optns.style.display = "none"
+    let dat = hD.split(" ")[0]
+    for(let i = 0; i<date_info[dat].length; i++){
+        if (date_info[dat][i]["id"] == hD.split(" ")[1]){
+            dayInfo = date_info[dat][i]
+            break
+        }
+    }
+    document.querySelector(".inputEvents div input[type=text]").value = dayInfo["Title"]
+    document.querySelector(".inputEvents div input[type=color]").value = dayInfo["color"]
+    document.querySelector(".inputEvents textarea").value = dayInfo["text"]
+    openEventTab()
+}
+
+{
+    let noteArea = document.querySelector("#noteArea")
+    let prevText = ""
+    noteArea.addEventListener("focus", ()=>{
+        checkChange = setInterval(()=>{
+            if(prevText != noteArea.value){
+                prevText = noteArea.value
+                window.api.send("textGet", "send " + prevText)
+            }
+            if(!noteArea === document.activeElement){
+                console.log("lost focus over text area!")
+                window.api.send("textGet", "get")
+                clearInterval(checkChange)
+            }
+        }, 2000)
+    })
+}
+
+//THEME
+
+window.api.receive("themeSend", (data)=>{
+    let themeArr = JSON.parse(data)
+    document.getElementsByClassName("full-bg")[0].innerHTML = ""
+    if(themeArr["background"].split(".")[1]=="mp4"){
+        let videoElem = document.createElement("video")
+        videoElem.src = themeArr["background"]
+        console.log(videoElem)
+        videoElem.muted = true;
+        videoElem.controls = false;
+        videoElem.loop = true;
+        videoElem.autoplay = true;
+        document.getElementsByClassName("full-bg")[0].appendChild(videoElem)
+    }else{
+        document.getElementsByClassName("full-bg")[0].style.backgroundImage = `url("${themeArr["background"]}")`
+    }
+    var r = document.querySelector(":root")
+    r.style.setProperty("--color", themeArr["color"])
+    r.style.setProperty("--bg", themeArr["bg"])
+    r.style.setProperty("--darkMain", themeArr["dM"])
+    r.style.setProperty("--lightMain", themeArr["lM"])
+    r.style.setProperty("--back", themeArr["back"])
+    r.style.setProperty("--contrast", themeArr["contrast"])
+    r.style.setProperty("--p1", themeArr["p1"])
+    r.style.setProperty("--p2", themeArr["p2"])
+    r.style.setProperty("--p3", themeArr["p3"])
+    r.style.setProperty("--p4", themeArr["p4"])
+    r.style.setProperty("--lp1", themeArr["lp1"])
+    r.style.setProperty("--lp2", themeArr["lp2"])
+    r.style.setProperty("--lp3", themeArr["lp3"])
+    r.style.setProperty("--lp4", themeArr["lp4"])
+    r.style.setProperty("--font", themeArr["font"])
+    document.getElementById("currTheme").value = themeArr["name"]
+})
+
+window.api.receive("themes", (data)=>{
+    for(let i = 0; i<data.length; i++){
+        let optn = document.createElement("option")
+        optn.innerText = data[i]
+        optn.value = data[i]
+        document.getElementById("currTheme").appendChild(optn)
+    }
+})
+
+window.api.send("theme", "get")
+
+function showSettings(){
+    let tempElem = document.getElementsByClassName("themeChange")[0]
+    if(tempElem.style.display == "none"){
+        tempElem.style.display = "block"
+    }else{
+        tempElem.style.display = "none"
+    }
+    window.api.send("theme", "themes")
+}
+
+document.getElementById("currTheme").onchange = (ev)=>{
+    window.api.send("theme", "change "+document.getElementById("currTheme").value)
+    window.api.send("theme", "get")
 }

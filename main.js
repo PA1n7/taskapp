@@ -10,6 +10,7 @@ async function createWindow(){
         width: 800,
         height: 600,
         autoHideMenuBar: true,
+        icon:"images/notebook.png",
         webPreferences:{
             nodeIntegration: false,
             contextIsolation: true,
@@ -30,17 +31,17 @@ app.on('window-all-closed', () => {
 
 ipcMain.on("toMain", (event, args)=>{
     let data = args.split(" ")
-    console.log("command received "+args)
+    // console.log("command received "+args)
     if (data[0]=="read"){
         fs.readFile("saved_data.json", (err, fileData)=>{
             if(err)throw err
             let jsonData = JSON.parse(fileData.toString())
-            console.log("Read file:")
-            console.log(fileData.toString() + "\nEND")
-            console.log("Finding for index "+data[1])
+            // console.log("Read file:")
+            // console.log(fileData.toString() + "\nEND")
+            // console.log("Finding for index "+data[1])
             let response = jsonData[data[1].toString()]
-            console.log(`response: ${response}`)
-            console.log("Returning response...")
+            // console.log(`response: ${response}`)
+            // console.log("Returning response...")
             win.webContents.send("fromMain", [response, data[1]])
         })
     }
@@ -67,13 +68,53 @@ ipcMain.on("todoGet", (event, args)=>{
     if(data[0]=="send"){
         if(data[1]=="todo"){
             console.log("writing file...")
-            let final_res = data.slice(2).join(" ").split(",").join('","')
-            let f_res = "[]"
-            if (final_res != ""){
-                f_res = ('["'+final_res+'"]')
-            }
-            fs.writeFile("todo.json", f_res, (err)=>{if(err)throw err})
+            let final_res = data.slice(2).join(" ")
+            console.log(final_res)
+            fs.writeFile("todo.json", final_res, (err)=>{if(err)throw err})
             console.log("File written!")
         }
+    }
+})
+
+ipcMain.on("textGet", (event, args)=>{
+    let data = args.split(" ")
+    if(data[0] == "get"){
+        fs.readFile("notes.txt", (err, fileData)=>{
+            if(err)throw err
+            win.webContents.send("textSend", fileData.toString())
+        })
+    }
+    if(data[0] == "send"){
+        fs.writeFile("notes.txt", data.slice(1).join(" "), (err)=>{if(err){throw err}})
+        console.log("saved text file data!")
+    }
+})
+
+ipcMain.on("theme", (event, args)=>{
+    let data = args.split(" ")
+    if(data[0] == "get"){
+        fs.readFile("settings.json", (err, fileData)=>{
+            if(err)throw err
+            let theme = JSON.parse(fileData.toString())["Theme"]
+            console.log(theme)
+            fs.readFile("Themes/"+theme+"/colors.json", (err, themeData)=>{
+                if(err)throw err
+                win.webContents.send("themeSend", themeData.toString())
+            })
+        })
+    }
+    if(data[0] == "themes"){
+        fs.readdir("Themes", (err, files)=>{
+            if (err)throw err
+            win.webContents.send("themes", files)
+        })
+    }
+    if(data[0] == "change"){
+        fs.readFile("settings.json", (err, fileData)=>{
+            if(err)throw err
+            let tempChange = JSON.parse(fileData)
+            tempChange["Theme"] = data[1]
+            fs.writeFile("settings.json", JSON.stringify(tempChange), (err)=>{if(err)throw err})
+        })
     }
 })
