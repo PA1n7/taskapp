@@ -39,9 +39,7 @@ to a dict that includes Title, color, and text
 }
 ```
 
-## TODO
-
-### *Change directory of save files for update proof*
+## *All TODO DONE*
 
 ## Completed TODO
 
@@ -68,3 +66,5 @@ to a dict that includes Title, color, and text
 ~~App settings~~
 
 ~~App UI~~
+
+~~Change directory of save files for update proof~~
