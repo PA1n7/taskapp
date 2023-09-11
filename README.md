@@ -1,6 +1,10 @@
 # Taskapp
 
-## There is still no official release of the app
+## I made an official release, don't plan on updating it because I'll look into bun.
+
+[Download Here](https://pein4346.itch.io/annual)
+The download instructions are in the page!
+
 
 ## Recent updates
 
